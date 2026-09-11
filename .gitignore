@@ -1,0 +1,44 @@
+# dependencies
+/node_modules
+
+# next.js
+/.next/
+/out/
+next-env.d.ts
+
+# typescript
+*.tsbuildinfo
+
+# production / build output
+/build
+/dist
+
+# testing
+/coverage
+/test-results
+/playwright-report
+
+# env files
+.env
+.env.local
+.env.*.local
+
+# misc
+.DS_Store
+*.pem
+*-debug.log*
+.pnpm-debug.log*
+
+# editor
+.idea
+.vscode/*
+!.vscode/extensions.json
+
+# vercel
+.vercel
+
+# serwist が生成するサービスワーカー（ビルド成果物）
+/public/sw.js
+/public/sw.js.map
+/public/swe-worker-*.js
+.serena/

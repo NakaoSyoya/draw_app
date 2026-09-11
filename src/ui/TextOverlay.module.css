@@ -1,0 +1,38 @@
+.overlay {
+  position: absolute;
+  display: flex;
+  align-items: flex-start;
+  gap: 2px;
+  transform-origin: top left;
+}
+
+.handle {
+  flex: 0 0 auto;
+  width: 14px;
+  height: 14px;
+  padding: 0;
+  border: 1px solid var(--accent);
+  border-radius: 3px;
+  background: var(--surface);
+  cursor: move;
+}
+
+.handle::before {
+  display: block;
+  color: var(--accent);
+  font-size: 10px;
+  line-height: 12px;
+  text-align: center;
+  content: "✥";
+}
+
+.input {
+  min-width: 6rem;
+  padding: 0;
+  border: none;
+  border-bottom: 1px dashed var(--accent);
+  background: rgb(255 255 255 / 65%);
+  font-family: inherit;
+  line-height: 1.2;
+  outline-offset: 2px;
+}

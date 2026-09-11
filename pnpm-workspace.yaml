@@ -1,0 +1,7 @@
+# pnpm 12+: native build scripts are opt-in per dependency.
+allowBuilds:
+  "@biomejs/biome": true
+  esbuild: true
+  sharp: true
+minimumReleaseAgeExclude:
+  - '@napi-rs/canvas-win32-arm64-msvc@1.0.9'

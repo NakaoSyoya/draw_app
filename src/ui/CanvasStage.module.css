@@ -1,0 +1,28 @@
+.container {
+  display: flex;
+  flex: 1 1 auto;
+  align-items: center;
+  justify-content: center;
+  min-width: 0;
+  min-height: 0;
+  overflow: hidden;
+}
+
+.stage {
+  position: relative;
+  background: var(--surface);
+  box-shadow: 0 1px 4px rgb(0 0 0 / 25%);
+}
+
+.canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: block;
+}
+
+.preview {
+  cursor: crosshair;
+  /* ドラッグ中にブラウザのスクロール／ジェスチャが割り込むのを防ぐ。 */
+  touch-action: none;
+}
