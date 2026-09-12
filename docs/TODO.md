@@ -176,7 +176,7 @@ P0 初期化
 - [x] ズーム・パンは入れない（SPEC §16 #3、縮小表示のみ）
 - [x] `src/config/presets.ts` に `DEFAULT_PRESET_ID` / `findPreset` / `getDefaultPreset` を追加（+ テスト7件）。P11 / P12 のプリセット選択でも使う
 - [x] `src/ui/CanvasStageDemo.tsx`: P8 疎通確認用の最小デモ（ドラッグで線 → 離してベースへ確定、`requestAnimationFrame` でフレーム単位に描画をまとめる）。**P10 で `PaintApp` に置き換える**
-- [ ] **[保留]** 実ブラウザでの目視確認（下記）
+- [x] **[保留→完了]** 実ブラウザでの目視確認 ─ P14 の Chromium 検証および P15 の本番 URL 検証で、ドラッグ1本の線がベースキャンバスに確定することを確認済み
 
 **完了条件**: `pointer.ts` のテストが緑 ✅。全 203 テストが緑 ✅。`src/canvas/` のカバレッジは **Statements / Branches / Functions / Lines すべて 100%** ✅。`pnpm lint` / `pnpm typecheck` / `pnpm build`（静的出力）も緑 ✅。
 
@@ -231,7 +231,7 @@ P0 初期化
 - [x] スナップショットの保持形式を確定（SPEC §16 #4）→ **`PixelBuffer`（生ピクセル）**
 - [x] `src/canvas/contexts.ts`: `CanvasContexts` 型を React から独立させ、セッションをヘッドレスでテスト可能に
 - [x] **[テスト]** `paint-session` 28件（実 2D コンテキストでの統合テスト）/ `shortcuts` 32件 / `settings` 13件
-- [ ] **[保留]** 実ブラウザでの目視確認（P8 と同じ理由。下記）
+- [x] **[保留→完了]** 実ブラウザでの目視確認 ─ P14 の Chromium 検証および P15 の本番 URL 検証で、描く → 取り消し → やり直しが実ピクセル 1528 → 0 → 1528 で復元することを確認済み
 
 **完了条件**: ブラシで描く → Undo → Redo が動作 ✅ / ツール切替で pending が確定 ✅ ─ いずれも `tests/ui/paint-session.test.ts` が実ピクセルで検証。全 419 テストが緑 ✅。`src/ui/` の非 React ロジックのカバレッジは **全項目 100%**、`src/tools/` `src/canvas/` も同様 ✅。`pnpm lint` / `typecheck` / `build` も緑 ✅。
 
@@ -326,8 +326,8 @@ P0 初期化
 - [x] `src/pwa/ServiceWorkerRegistrar.tsx` で登録（開発中は登録しない）
 - [x] **[テスト]** `tests/pwa/strategy.test.ts`（20件）: 戦略の選択（ページ遷移 / ハッシュ付きアセット / 固定 URL / GET 以外 / 別オリジン / 不正 URL / パスの部分一致 / クエリ付き）とキャッシュ世代の管理
 - [x] **[テスト]** `tests/pwa/manifest.test.ts`（11件）: インストール要件の項目、**宣言したアイコンが実在し宣言どおりの寸法であること**まで確認
-- [ ] **[手動]** ネットワーク切断で再読み込み → 起動し全機能（保存含む）動作
-- [ ] **[手動]** デスクトップ Chrome でインストール → 単独ウィンドウで起動
+- [x] **[手動→完了]** ネットワーク切断で再読み込み → 起動し全機能動作 ─ 本番 URL をオフラインにして再読み込みし、タイトル・キャンバス 2 枚・ボタン 22 個が復帰することを確認（P15）
+- [ ] **[要ユーザー]** デスクトップ Chrome でインストール → 単独ウィンドウで起動 ─ インストール**要件**（SW が `activated`・`display: standalone`・192/512/maskable アイコン実在）は本番 URL で確認済みだが、実際のインストール操作は未実施
 
 **完了条件**: 静的出力に `out/sw.js`・`out/manifest.webmanifest`・`out/icons/*` が揃い、配信して 200 で取得できることを確認 ✅。HTML に `<link rel="manifest">` が入る ✅。全 528 テストが緑 ✅。`pnpm lint` / `typecheck` / `build` も緑 ✅。Lighthouse での確認は未実施（下記）。
 
@@ -412,15 +412,40 @@ P0 初期化
 
 ---
 
-## P15. デプロイ
+## P15. デプロイ ✅
 
-- [ ] GitHub に public リポジトリを作成し push
-- [ ] Vercel プロジェクトを作成、GitHub リポジトリと Git 連携（Hobby プラン）
-- [ ] `main` push で本番デプロイ、PR でプレビューデプロイが動くことを確認
-- [ ] 本番 URL（`*.vercel.app`）で、描画・保存・オフライン・PWA インストールを確認
-- [ ] Vercel のプロジェクト設定で Serverless/Edge Functions が生成されていないこと（＝Function 実行課金が発生しない構成）を確認
+- [x] GitHub に public リポジトリを作成し push（`NakaoSyoya/draw_app`）
+- [x] Vercel プロジェクトを作成、GitHub リポジトリと Git 連携（Hobby プラン）
+- [x] `main` push で本番デプロイ、PR でプレビューデプロイが動くことを確認
+- [x] 本番 URL（https://drawapp-pi.vercel.app）で、描画・保存・オフライン・PWA インストールを確認
+- [x] Vercel のプロジェクト設定で Serverless/Edge Functions が生成されていないこと（＝Function 実行課金が発生しない構成）を確認
 
-**完了条件**: 本番 URL で MVP 全機能が動作。コストが発生していない。
+**完了条件**: 本番 URL で MVP 全機能が動作 ✅。コストが発生していない ✅。
+
+### 本番 URL での検証結果（2026-09-12 / Chromium）
+
+| 検証項目 | 結果 |
+| --- | --- |
+| 配信 | `/` `/sw.js` `/manifest.webmanifest` `/robots.txt` `/icons/icon-192.png` すべて 200 |
+| セキュリティヘッダ | `vercel.json` の CSP・COOP・Referrer-Policy・Permissions-Policy・X-Content-Type-Options がすべて適用済み |
+| CSP 違反 | コンソールエラー 0 件（P14 の「実ブラウザ未検証」の宿題を解消） |
+| レイアウト | 1024 / 1267 / 1400px 幅で横スクロールなし。キャンバスは 1280px → 1000 / 846 / 1280px に縮小表示 |
+| 描画 | ドラッグで非白ピクセル 1528 個を描画。半透明ピクセル 0 個（不透明の不変条件を維持） |
+| Undo / Redo | 1528 → 0 → 1528 で完全に復元 |
+| PNG 保存 | `drawing-20260912-112302.png` を取得。1280x720、透過ピクセル 0（背景白）、線が保存されている |
+| PWA | サービスワーカーが `activated`、`display: standalone`、アイコン 192/512/512-maskable → インストール要件を満たす |
+| オフライン | 通信を切って再読み込み → タイトル・キャンバス 2 枚・ボタン 22 個がすべて復帰 |
+| Function 課金 | ビルド成果物に `.func` / `functions-manifest.json` なし、動的ルート 0 / 静的ルート 4、配信は `x-vercel-cache: HIT` の静的レスポンス |
+
+> デプロイ時に **Vercel のビルドが一度失敗した**。原因は `next.config.ts` の `output: "export"` ではなく、
+> Next.js 15.5.4 に既知の脆弱性（`<15.5.7` の CRITICAL な RCE を含む）があり、Vercel の
+> セキュリティチェックがビルドを止めていたこと。15.5.25 へ上げるだけで解決し、**ソースの書き換えは不要だった**。
+> 静的書き出しのため該当 CVE は実際には成立しないが、Vercel の判定はバージョン基準のため更新が必要だった。
+>
+> ユーザーのスクリーンショットでツールバーが右端で切れて見えたのは**スクリーンショットの切り取り**で、
+> レイアウトの不具合ではない（上表のとおり、どの幅でも横スクロールは発生していない）。
+>
+> 残りの宿題（P14 由来）: Firefox / Safari / Edge でのクロスブラウザ確認、実機での PWA インストール。
 
 ---
 
